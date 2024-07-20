@@ -66,7 +66,7 @@ export default function TreeCheckbox() {
     if (event.target.name.includes("parent") && event.target.checked) {
       checkbox.checked = true;
     } else if (event.target.name.includes("child") && event.target.checked) {
-      checkbox.checked
+      checkbox.checked = indeterminate;
     }
 
     // for (let checkbox of allCheckboxesInGroup) {
@@ -83,9 +83,7 @@ export default function TreeCheckbox() {
     // }
   };
 
-  useEffect(() => {
-
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div>
