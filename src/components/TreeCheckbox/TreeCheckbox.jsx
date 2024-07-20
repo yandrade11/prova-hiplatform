@@ -8,25 +8,21 @@ export default function TreeCheckbox() {
   const [dataJson, setDataJson] = useState({});
   const [parentChecked, setParentChecked] = useState();
   const [selectedChildIds, setSelectedChildId] = useState([]);
-  const [allChecked, setAllChecked] = useState([]);
+  // const [allChecked, setAllChecked] = useState([]);
 
   //baixa json
   useEffect(() => {
     const showName = async () => {
       const baseUrl = window.location.href;
 
-      await fetch(`${baseUrl}/dataJson.json`).then((response) => {
-        setDataJson(response.data);
-      });
-
-      // await axios
-      //   .get(`${baseUrl}/data.json`)
-      //   .then((response) => {
-      //     setDataJson(response.data);
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
+      await axios
+        .get(`${baseUrl}/data.json`)
+        .then((response) => {
+          setDataJson(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     };
     showName();
   }, []);
@@ -58,21 +54,38 @@ export default function TreeCheckbox() {
     }
   };
 
-  const handleClick = (event) => {
-    const targetId = event.target.value;
+  const handleClick = async (event, index) => {
+    //pega id do checkbox pai selecionado
+    const targetCheckboxId = event.target.value;
 
+    //pega todos os filhos do pai clicado
     const allCheckboxesInGroup = document.querySelectorAll(
-      `ul.treeCheckboxChild-${event} input[type="checkbox"]`
+      `ul.treeCheckboxChild-${targetCheckboxId} input[type="checkbox"]`
     );
 
-    if (targetId.includes("parent")) {
-      // setParentChecked(targetId);
+    if (event.target.name.includes("parent") && event.target.checked) {
+      checkbox.checked = true;
+    } else if (event.target.name.includes("child") && event.target.checked) {
+      checkbox.checked
     }
 
-    console.log(parentChecked);
+    // for (let checkbox of allCheckboxesInGroup) {
+    //   if (event.target.name.includes("parent") && event.target.checked) {
+    //     checkbox.checked = true;
+    //     setSelectedChildId([...selectedChildIds, checkbox.id]);
+    //   } else if (!event.target.checked) checkbox.checked = false;
+    // }
+
+    // console.log(selectedChildIds);
+
+    // if (event.target.name.includes("child") && event.target.checked) {
+    //   parentChecked.checked = indetermanite;
+    // }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+
+  }, []);
 
   return (
     <div>
@@ -93,7 +106,7 @@ export default function TreeCheckbox() {
                     onChange={(event) => {
                       handleClick(event);
                     }}
-                    value={index.id}
+                    value={index}
                   />
 
                   <label
@@ -133,7 +146,7 @@ export default function TreeCheckbox() {
                     type="checkbox"
                     name={"child-checkbox-" + keys}
                     id={"child-checkbox-" + keys}
-                    checked={false}
+                    checked={keys.checked}
                     onChange={(event) => {
                       handleClick(event);
                     }}
