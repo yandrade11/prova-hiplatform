@@ -1,0 +1,50 @@
+div {
+  &.tree-checkbox-list__parent-div {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+img {
+  &.icon-arrow {
+    &.close-arrow,
+    &.open-arrow {
+      width: 25px;
+    }
+  }
+}
+
+ul {
+  li {
+    list-style: none;
+  }
+
+  &.tree-checkbox-list {
+    width: 600px;
+  }
+}
+
+.tree-checkbox-list__item {
+  margin-top: 10px;
+  text-align: justify;
+}
+
+.close-list {
+  display: none;
+}
+
+.open-list {
+  display: block;
+}
+
+.close-arrow {
+  transform: rotate(0);
+}
+
+.open-arrow {
+  transform: rotate(180deg);
+}
+
+ul.treeCheckboxChild-0 .child-checkbox {
+
+}
