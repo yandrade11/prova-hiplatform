@@ -62,10 +62,16 @@ export default function TreeCheckbox() {
     const allCheckboxesInGroup = document.querySelectorAll(
       `ul.treeCheckboxChild-${targetCheckboxId} input[type="checkbox"]`
     );
+    
+    for (let checkbox of allCheckboxesInGroup) {
+      if (event.target.name.includes("parent") && event.target.checked) {
+        checkbox.checked = true;
+      } else {
+        checkbox.checked = false;
+      }
+    }
 
-    if (event.target.name.includes("parent") && event.target.checked) {
-      checkbox.checked = true;
-    } else if (event.target.name.includes("child") && event.target.checked) {
+    if (event.target.name.includes("child") && event.target.checked) {
       checkbox.checked = indeterminate;
     }
 
